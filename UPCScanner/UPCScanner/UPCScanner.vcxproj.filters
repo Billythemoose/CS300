@@ -14,4 +14,23 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BarcodeArrayScanner.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BarcodeBSTScanner.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BarcodeScanner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BinarySearchTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UPC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

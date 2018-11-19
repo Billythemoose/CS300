@@ -18,6 +18,15 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BarcodeArrayScanner.h" />
+    <ClCompile Include="BarcodeBSTScanner.h" />
+    <ClCompile Include="BarcodeScanner.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BinarySearchTree.h" />
+    <ClInclude Include="UPC.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{B6996560-D9F9-4F17-937D-C28EB1D25410}</ProjectGuid>
@@ -114,8 +123,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
