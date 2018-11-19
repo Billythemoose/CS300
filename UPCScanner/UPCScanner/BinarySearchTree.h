@@ -28,6 +28,7 @@ public:
 	int height() { return height(root); }
 	void insert(T& item) { insert(root, item); }
 	bool search(T& item) { return search(root, item); }
+	T find(T& item) { return find(root, item); }
 	T findMax(T& e) { return findMax(root, e); }
 	T findMin(T& e) { return findMin(root, e); }
 	void deletenode(T& item) { deletenode(root, item); }
@@ -43,6 +44,7 @@ private:
 	int max(int, int);
 	void insert(Node<T>*&, T&);
 	bool search(Node<T>*, T&);
+	T find(Node<T>*, T&);
 	T findMax(Node<T>*, T&);
 	T findMin(Node<T>*, T&);
 	void deletenode(Node<T>*&, T&);
@@ -128,6 +130,22 @@ bool BinarySearchTree<T>::search(Node<T>* p, T& item) {
 	else if (item > p->data)
 		return search(p->right, item);
 	return true;
+}
+
+template <class T>
+T BinarySearchTree<T>::find(Node<T>* p, T& item) {
+	if (p == NULL) {
+		return item;
+	}
+	else if (item < p->data) {
+		return find(p->left, item);
+	}
+	else if (item > p->data) {
+		return find(p->right, item);
+	}
+	else {
+		return p->data;
+	}
 }
 
 template <class T>

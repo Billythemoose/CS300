@@ -23,7 +23,9 @@ BarcodeBSTScanner::~BarcodeBSTScanner()
 void BarcodeBSTScanner::find(int64_t& code)
 {
 	UPC temp = UPC(code);
-	scanner->search(temp);
+	// scanner->search(temp);
+	UPC result = scanner->find(temp);
+	cout << result;
 }
 
 void BarcodeBSTScanner::loadFromFile(std::string& filePath)
