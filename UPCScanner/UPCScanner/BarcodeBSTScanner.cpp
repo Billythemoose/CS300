@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <codecvt>
 
 void BarcodeBSTScanner::initialize()
 {
@@ -32,20 +33,25 @@ void BarcodeBSTScanner::loadFromFile(std::string& filePath)
 	{
 		ifstream file;
 		file.open(filePath);
+
+		// file.imbue(locale(locale::empty(), new codecvt_utf8<wchar_t>));
+		file.imbue(locale());
 		string placeholderLine;
+		getline(file, placeholderLine);
 		while(getline(file, placeholderLine))
 		{
 			int key;
 			string value;
 			string placeholderKey;
-			stringstream st(placeholderLine);
+			istringstream st(placeholderLine);
 			getline(st, placeholderKey, ',');
 			getline(st, value);
-			key = stoi(placeholderKey);
+
+			istringstream stNum(placeholderKey);
+			stNum >> key;
 
 			UPC add = UPC(key, value);
 			scanner->insert(add);
-
 		}
 	}
 	catch (std::exception& e)

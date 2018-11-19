@@ -8,17 +8,46 @@
 class UPC
 {
 	public:
-		UPC();
-		UPC(int& _key);
-		UPC(int& _key, std::string& _value);
-		bool operator>(const UPC& other);
-		bool operator<(const UPC& other);
-		friend std::ostream& operator<<(std::ostream& os, UPC& other);
+		UPC()
+		{
+			key = 0;
+			value = "";
+		}
+
+		UPC(int& _key)
+		{
+			key = _key;
+		}
+
+		UPC(int& _key, std::string& _value)
+		{
+			key = _key;
+			value = _value;
+		}
+
+		bool operator>(const UPC& other)
+		{
+			return (this->key > other.key);
+		}
+
+		bool operator<(const UPC& other)
+		{
+			return (this->key < other.key);
+		}
+
+		friend std::ostream& operator<<(std::ostream& os, UPC& other)
+		{
+			os << other.key << std::endl;
+			os << other.value << std::endl;
+			return os;
+		}
+
 	private:
 		int key;
 		std::string value;
 };
 
+/*
 UPC::UPC()
 {
 	key = 0;
@@ -52,5 +81,6 @@ std::ostream& operator<<(std::ostream& os, UPC& other)
 	os << other.value << std::endl;
 	return os;
 }
+*/
 
 #endif /* UPC_H_ */
