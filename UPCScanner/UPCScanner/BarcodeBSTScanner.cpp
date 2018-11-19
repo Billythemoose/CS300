@@ -20,7 +20,7 @@ BarcodeBSTScanner::~BarcodeBSTScanner()
 	delete scanner;
 }
 
-void BarcodeBSTScanner::find(int& code)
+void BarcodeBSTScanner::find(int64_t& code)
 {
 	UPC temp = UPC(code);
 	scanner->search(temp);
@@ -52,7 +52,6 @@ void BarcodeBSTScanner::loadFromFile(std::string& filePath)
 
 			UPC* add = new UPC(key, value);
 			scanner->insert(*add);
-			// delete add;
 		}
 	}
 	catch (std::exception& e)

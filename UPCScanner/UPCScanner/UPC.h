@@ -14,7 +14,7 @@ class UPC
 			value = "";
 		}
 
-		UPC(int& _key)
+		UPC(int64_t& _key)
 		{
 			key = _key;
 		}

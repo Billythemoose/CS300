@@ -12,7 +12,7 @@ class BarcodeBSTScanner
 {
 	public:
 		BarcodeBSTScanner();
-		void find(int& code);
+		void find(int64_t& code);
 		void loadFromFile(std::string& filePath);
 		~BarcodeBSTScanner();
 	private:
