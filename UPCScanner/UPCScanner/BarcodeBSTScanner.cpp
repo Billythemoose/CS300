@@ -18,7 +18,6 @@ BarcodeBSTScanner::BarcodeBSTScanner()
 BarcodeBSTScanner::~BarcodeBSTScanner()
 {
 	delete scanner;
-	initialize();
 }
 
 void BarcodeBSTScanner::find(int& code)
@@ -40,7 +39,8 @@ void BarcodeBSTScanner::loadFromFile(std::string& filePath)
 		getline(file, placeholderLine);
 		while(getline(file, placeholderLine))
 		{
-			int key;
+			// int key;
+			int64_t key;
 			string value;
 			string placeholderKey;
 			istringstream st(placeholderLine);
@@ -50,8 +50,9 @@ void BarcodeBSTScanner::loadFromFile(std::string& filePath)
 			istringstream stNum(placeholderKey);
 			stNum >> key;
 
-			UPC add = UPC(key, value);
-			scanner->insert(add);
+			UPC* add = new UPC(key, value);
+			scanner->insert(*add);
+			// delete add;
 		}
 	}
 	catch (std::exception& e)

@@ -19,7 +19,7 @@ class UPC
 			key = _key;
 		}
 
-		UPC(int& _key, std::string& _value)
+		UPC(int64_t& _key, std::string& _value)
 		{
 			key = _key;
 			value = _value;
@@ -43,7 +43,7 @@ class UPC
 		}
 
 	private:
-		int key;
+		int64_t key;
 		std::string value;
 };
 

@@ -19,16 +19,16 @@ class Node
 template <class T>
 Node<T>::Node()
 {
-	left = new Node<T>;
-	right = new Node<T>;
+	// left = new Node<T>;
+	// right = new Node<T>;
 }
 
 template <class T>
 Node<T>::Node(T& item)
 {
 	data = item;
-	left = new Node<T>;
-	right = new Node<T>;
+	//left = new Node<T>;
+	// right = new Node<T>;
 }
 
 
@@ -43,8 +43,13 @@ Node<T>::Node(Node& other)
 template <class T>
 Node<T>::~Node()
 {
-	delete left;
-	delete right;
+	if (left) {
+		left = nullptr;
+	}
+
+	if (right) {
+		right = nullptr;
+	}
 }
 
 #endif /* NODE_H_ */
