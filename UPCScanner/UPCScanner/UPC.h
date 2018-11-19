@@ -8,13 +8,27 @@
 class UPC
 {
 	public:
+		UPC();
+		UPC(int& _key);
 		UPC(int& _key, std::string& _value);
 		bool operator>(const UPC& other);
 		bool operator<(const UPC& other);
+		friend std::ostream& operator<<(std::ostream& os, UPC& other);
 	private:
 		int key;
 		std::string value;
 };
+
+UPC::UPC()
+{
+	key = 0;
+	value = "";
+}
+
+UPC::UPC(int& _key)
+{
+	key = _key;
+}
 
 UPC::UPC(int& _key, std::string& _value)
 {
@@ -30,6 +44,13 @@ bool UPC::operator>(const UPC& other)
 bool UPC::operator<(const UPC& other)
 {
 	return (this->key < other.key);
+}
+
+std::ostream& operator<<(std::ostream& os, UPC& other)
+{
+	os << other.key << std::endl;
+	os << other.value << std::endl;
+	return os;
 }
 
 #endif /* UPC_H_ */

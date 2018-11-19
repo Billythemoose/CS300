@@ -8,9 +8,14 @@
 	// info is value
 	// there are no duplicates
 
-BinarySearchTree<UPC>* scanner = new BinarySearchTree<UPC>();
-
-void readFile()
+class BarcodeBSTScanner
 {
-	
-}
+	public:
+		BarcodeBSTScanner();
+		void find(int& code);
+		void loadFromFile(std::string& filePath);
+		~BarcodeBSTScanner();
+	private:
+		BinarySearchTree<UPC>* scanner;
+		void initialize();
+};

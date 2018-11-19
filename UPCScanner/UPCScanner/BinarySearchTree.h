@@ -2,15 +2,20 @@
 
 #ifndef BINARYSEARCHTREE_H_
 #define BINARYSEARCHTREE_H_
+
+#include "Node.h"
 #include <iostream>
+
 using namespace std;
 
+/*
 template <class T>
 struct node {
 	T data;
 	node<T>* left;
 	node<T>* right;
 };
+*/
 
 template <class T>
 class BinarySearchTree {
@@ -29,20 +34,19 @@ public:
 	~BinarySearchTree() { destroy(root); }
 
 private:
-	node<T>* root;
-	void printInOrder(node<T>*);
-	void printPreOrder(node<T>*);
-	void printPostOrder(node<T>*);
-	void destroy(node<T>*);
-	int height(node<T>*);
+	Node<T>* root;
+	void printInOrder(Node<T>*);
+	void printPreOrder(Node<T>*);
+	void printPostOrder(Node<T>*);
+	void destroy(Node<T>*);
+	int height(Node<T>*);
 	int max(int, int);
-	void insert(node<T>*&, T&);
-	bool search(node<T>*, T&);
-	T findMax(node<T>*, T&);
-	T findMin(node<T>*, T&);
-	void deletenode(node<T>*&, T&);
+	void insert(Node<T>*&, T&);
+	bool search(Node<T>*, T&);
+	T findMax(Node<T>*, T&);
+	T findMin(Node<T>*, T&);
+	void deletenode(Node<T>*&, T&);
 };
-
 
 template <class T>
 BinarySearchTree<T>::BinarySearchTree() {
@@ -50,7 +54,7 @@ BinarySearchTree<T>::BinarySearchTree() {
 }
 
 template <class T>
-void BinarySearchTree<T>::printInOrder(node<T>* p) {
+void BinarySearchTree<T>::printInOrder(Node<T>* p) {
 	if (p != NULL) {
 		printInOrder(p->left);
 		cout << p->data << " ";
@@ -59,7 +63,7 @@ void BinarySearchTree<T>::printInOrder(node<T>* p) {
 }
 
 template <class T>
-void BinarySearchTree<T>::printPreOrder(node<T>* p) {
+void BinarySearchTree<T>::printPreOrder(Node<T>* p) {
 	if (p != NULL) {
 		cout << p->data << " ";
 		printPreOrder(p->left);
@@ -68,7 +72,7 @@ void BinarySearchTree<T>::printPreOrder(node<T>* p) {
 }
 
 template <class T>
-void BinarySearchTree<T>::printPostOrder(node<T>* p) {
+void BinarySearchTree<T>::printPostOrder(Node<T>* p) {
 	if (p != NULL) {
 		printPostOrder(p->left);
 		printPostOrder(p->right);
@@ -83,7 +87,7 @@ int BinarySearchTree<T>::max(int x, int y) {
 }
 
 template <class T>
-int BinarySearchTree<T>::height(node<T>* p) {
+int BinarySearchTree<T>::height(Node<T>* p) {
 	if (p != NULL) {
 		return 1 + max(height(p->left), height(p->right));
 	}
@@ -91,7 +95,7 @@ int BinarySearchTree<T>::height(node<T>* p) {
 }
 
 template <class T>
-void BinarySearchTree<T>::destroy(node<T>* p) {
+void BinarySearchTree<T>::destroy(Node<T>* p) {
 	if (p != NULL) {
 		destroy(p->left);
 		destroy(p->right);
@@ -101,9 +105,9 @@ void BinarySearchTree<T>::destroy(node<T>* p) {
 }
 
 template <class T>
-void BinarySearchTree<T>::insert(node<T>*& p, T& item) {
+void BinarySearchTree<T>::insert(Node<T>*& p, T& item) {
 	if (p == NULL) {
-		p = new node<T>;
+		p = new Node<T>;
 		p->data = item;
 		p->left = p->right = NULL;
 	}
@@ -116,7 +120,7 @@ void BinarySearchTree<T>::insert(node<T>*& p, T& item) {
 }
 
 template <class T>
-bool BinarySearchTree<T>::search(node<T>* p, T& item) {
+bool BinarySearchTree<T>::search(Node<T>* p, T& item) {
 	if (p == NULL)
 		return false;
 	else if (item < p->data)
@@ -127,7 +131,7 @@ bool BinarySearchTree<T>::search(node<T>* p, T& item) {
 }
 
 template <class T>
-T BinarySearchTree<T>::findMax(node<T>* p, T& e) {
+T BinarySearchTree<T>::findMax(Node<T>* p, T& e) {
 	if (p == NULL)
 		return e;
 	else if (p->right == NULL)
@@ -137,7 +141,7 @@ T BinarySearchTree<T>::findMax(node<T>* p, T& e) {
 }
 
 template <class T>
-T BinarySearchTree<T>::findMin(node<T>* p, T& e) {
+T BinarySearchTree<T>::findMin(Node<T>* p, T& e) {
 	if (p == NULL)
 		return e;
 	else if (p->left == NULL)
@@ -147,7 +151,7 @@ T BinarySearchTree<T>::findMin(node<T>* p, T& e) {
 }
 
 template <class T>
-void BinarySearchTree<T>::deletenode(node<T>*& p, T& item) {
+void BinarySearchTree<T>::deletenode(Node<T>*& p, T& item) {
 	//item not found, do nothing
 	if (p == NULL)
 		return;
@@ -162,7 +166,7 @@ void BinarySearchTree<T>::deletenode(node<T>*& p, T& item) {
 			deletenode(p->left, p->data);
 		}
 		else {
-			node<T>* old = p;
+			Node<T>* old = p;
 			if (p->left != NULL)
 				p = p->left;
 			else
@@ -172,7 +176,6 @@ void BinarySearchTree<T>::deletenode(node<T>*& p, T& item) {
 		}
 	}
 }
-
 
 #endif /* BINARYSEARCHTREE_H_ */
 
