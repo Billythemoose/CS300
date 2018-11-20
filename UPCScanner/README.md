@@ -10,7 +10,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-CSV with UPC and descriptions. CSV must be delimited with a comma (','). The program expects the first row of the CSV to contain column header information and will ignore the first line. 
+CSV with UPC and descriptions. 
+
+CSV must be delimited with a comma (','). 
+
+The program expects the first row of the CSV to contain column header information and will ignore the first line. 
+
 Example CSV
 ```
 column_one,column_two
@@ -21,10 +26,15 @@ column_one,column_two
 ### Installation and Running
 
 Clone the current repo locally
+
 In a CMD or PowerShell window, navigate to the folder containing the "UPCScanner.exe" file
+
 Run "UPCScanner.exe"
+
 The program will begin with "File Path" 
+
 Enter the full file path for the CSV to be loaded
+
 Example:
 ```
 Clone to C:\Testing
@@ -36,6 +46,7 @@ Loading. This will take some time
 ```
 
 The program will load the information from the provided file path
+
 When prompted, enter a UPC to search for. 
 
 
