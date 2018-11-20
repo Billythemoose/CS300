@@ -35,6 +35,11 @@ class UPC
 			return (this->key < other.key);
 		}
 
+		bool operator==(const UPC& other)
+		{
+			return (this->key == other.key);
+		}
+
 		friend std::ostream& operator<<(std::ostream& os, UPC& other)
 		{
 			os << other.key << std::endl;
