@@ -5,40 +5,46 @@
 #include <sstream>
 #include <codecvt>
 
+// initialize BST
 void BarcodeBSTScanner::initialize()
 {
 	scanner = new BinarySearchTree<UPC>();
 }
 
+// BST constructor base 
 BarcodeBSTScanner::BarcodeBSTScanner()
 {
 	initialize();
 }
 
+// BST destructor 
 BarcodeBSTScanner::~BarcodeBSTScanner()
 {
 	delete scanner;
 }
 
+// search BST for provided code
 void BarcodeBSTScanner::find(int64_t& code)
 {
 	UPC temp = UPC(code);
-	// scanner->search(temp);
 	UPC result = scanner->find(temp);
 	cout << result;
 }
 
+// load UPC information from CSV file into BST
 void BarcodeBSTScanner::loadFromFile(std::string& filePath)
 {
 	try
 	{
 		ifstream file;
 		file.open(filePath);
-
-		// file.imbue(locale(locale::empty(), new codecvt_utf8<wchar_t>));
 		file.imbue(locale());
 		string placeholderLine;
+
+		// dump column header line
 		getline(file, placeholderLine);
+
+		// loop through file and load UPC 
 		while(getline(file, placeholderLine))
 		{
 			// int key;

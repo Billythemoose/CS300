@@ -5,29 +5,29 @@
 #include <iostream>
 #include <algorithm>
 
-/*
-void BarcodeArrayScanner::initialize()
-{
-
-}
-*/
-
+// Array constructor
 BarcodeArrayScanner::BarcodeArrayScanner()
 {
 	size = 0;
 }
 
+// Array destructor
 BarcodeArrayScanner::~BarcodeArrayScanner()
 {
 	delete[] scanner;
 }
 
+// load UPC information from CSV into array
 void BarcodeArrayScanner::loadFromFile(std::string& filePath)
 {
 	std::ifstream file;
 	file.open(filePath);
 	std::string placeholderLine;
+
+	// dump column header line
 	getline(file, placeholderLine);
+
+	// loop through file to create array size
 	while(getline(file, placeholderLine))
 	{
 		size++;
@@ -36,9 +36,12 @@ void BarcodeArrayScanner::loadFromFile(std::string& filePath)
 	file.close();
 	delete[] scanner;
 	scanner = new UPC[size];
-	
 	file.open(filePath);
+
+	// dump column header line
 	getline(file, placeholderLine);
+
+	// loop through file and add UPC to array
 	int index = 0;
 	while(getline(file, placeholderLine))
 	{
@@ -60,6 +63,7 @@ void BarcodeArrayScanner::loadFromFile(std::string& filePath)
 	std::sort(scanner, scanner + size);
 }
 
+// search for provided UPC in array 
 void BarcodeArrayScanner::find(int64_t& code)
 {
 	std::string empty = "";

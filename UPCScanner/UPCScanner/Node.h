@@ -3,35 +3,45 @@
 #ifndef NODE_H_
 #define NODE_H_
 
+// Node template class
 template <class T>
 class Node
 {
 	public:
+		// Node data
 		T data;
+
+		// Node pointer to the left
 		Node<T>* left;
+
+		// Node pointer to the right
 		Node<T>* right;
+
+		// Constructor initializing Node
 		Node();
+
+		// Constructor initializing Node with data
 		Node(T& item);
+
+		// Copy constructor for Node
 		Node(Node& other);
+
+		// Destructor for Node
 		~Node();
 };
 
+// Constructor initializing Node
 template <class T>
-Node<T>::Node()
-{
-	// left = new Node<T>;
-	// right = new Node<T>;
-}
+Node<T>::Node() {}
 
+// Constructor initializing Node with data
 template <class T>
 Node<T>::Node(T& item)
 {
 	data = item;
-	//left = new Node<T>;
-	// right = new Node<T>;
 }
 
-
+// Copy constructor for Node
 template <class T>
 Node<T>::Node(Node& other)
 {
@@ -40,6 +50,7 @@ Node<T>::Node(Node& other)
 	data = other.data;
 }
 
+// Destructor for Node
 template <class T>
 Node<T>::~Node()
 {
