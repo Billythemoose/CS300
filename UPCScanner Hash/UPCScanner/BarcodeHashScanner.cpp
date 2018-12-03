@@ -6,11 +6,7 @@
 #include <codecvt>
 
 
-BarcodeHashScanner::BarcodeHashScanner()
-{
-	// delete[] hashCount;
-	// hashCount = new int[1000];
-}
+BarcodeHashScanner::BarcodeHashScanner() { }
 
 
 BarcodeHashScanner::~BarcodeHashScanner()
@@ -21,16 +17,25 @@ BarcodeHashScanner::~BarcodeHashScanner()
 
 void BarcodeHashScanner::find(int64_t& code)
 {
-	/*
-	UPC temp = UPC(code);
-	UPC result = scanner->find(temp);
-	cout << result;
-	*/
+	int hashIndex = hash(code);
+	std::string empty = "";
+	UPC* add = new UPC(code, empty);
+	Node<UPC>* root = scanner[hashIndex];
+	if (hashCount[hashIndex] > 0) {
+		while (root != NULL)
+		{
+			if ((root->data) == *add)
+			{
+				std::cout << root->data;
+				break;
+			}
 
-	// create a fake UPC container
-	// hash the code
-	// go to the index of the hash
-	// loop through the linked list until empty or found
+			root = root->right;
+		}
+	}
+	else {
+		std::cout << "Does not exist in Hash" << std::endl;
+	}
 }
 
 int BarcodeHashScanner::hash(int64_t& key) {
@@ -63,21 +68,25 @@ void BarcodeHashScanner::loadFromFile(std::string& filePath)
 			std::istringstream stNum(placeholderKey);
 			stNum >> key;
 			int hashIndex = hash(key);
-			UPC* add = new UPC(key, value);
-			Node<UPC>* newNode = new Node<UPC>();
-			newNode->data = *add;
-			Node<UPC>*& root = scanner[hashIndex];
-			if (hashCount[hashIndex] <= 0) {
-				root = newNode;
-				hashCount[hashIndex]++;
-			}
-			else {
-				while (root->right != NULL) {
-					root = root->right;
+			if (hashIndex >= 0 && hashIndex <= 1000)
+			{
+				UPC* add = new UPC(key, value);
+				Node<UPC>* newNode = new Node<UPC>();
+				newNode->data = *add;
+				Node<UPC>*& root = scanner[hashIndex];
+				if (hashCount[hashIndex] <= 0) {
+					root = newNode;
+					hashCount[hashIndex]++;
 				}
+				else {
+					Node<UPC>* temp = root;
+					while (temp->right != NULL) {
+						temp = temp->right;
+					}
 
-				root->right = newNode;
-				hashCount[hashIndex]++;
+					temp->right = newNode;
+					hashCount[hashIndex]++;
+				}
 			}
 		}
 	}
@@ -101,46 +110,3 @@ void BarcodeHashScanner::print() {
 		}
 	}
 }
-
-/*
-template <class HashedObj>class HashTable {
-public:
-		HashTable(const HashedObj & notFound, int size = 101);
-		HashTable(const HashTable & rhs) :ITEM_NOT_FOUND(rhs.ITEM_NOT_FOUND), theLists(rhs.theLists) { }
-		const HashedObj & find(const HashedObj & x) const;
-		void makeEmpty();
-		void insert(const HashedObj & x);
-		void remove(const HashedObj & x);
-		const HashTable & operator=(const HashTable & rhs);
-	private:
-		vector<List<HashedObj> > theLists;
-		// The array of Lists
-		const HashedObj ITEM_NOT_FOUND;};
-		int hash( const string & key, int tableSize );
-		int hash( int key, int tableSize );
-}
-
--- Insert item x into the hash table. If the item is* already present, then do nothing.
-template <class HashedObj>
-void HashTable<HashedObj>::insert(const HashedObj & x) {
-	List<HashedObj> & whichList = theLists[hash(x, theLists.size())];
-	ListItr<HashedObj> itr = whichList.find(x);
-	if (!itr.isValid())
-		whichList.insert(x, whichList.zeroth());
-}
-
-// Remove item x from the hash table.
-template <class HashedObj>void HashTable<HashedObj>::remove(const HashedObj & x) {
-	theLists[hash(x, theLists.size())].remove(x);
-}
-
-//  Find item x in the hash table.* Return the matching item or ITEM_NOT_FOUND if not found
-template <class HashedObj>const HashedObj & HashTable<HashedObj>::find(const HashedObj & x) const {
-	ListItr<HashedObj> itr;
-	itr = theLists[hash(x, theLists.size())].find(x);
-	if (!itr.isValid())
-		return ITEM_NOT_FOUND;
-	else
-		return itr.retrieve();
-}
-*/

@@ -61,6 +61,8 @@ void BarcodeBSTScanner::loadFromFile(std::string& filePath)
 			UPC* add = new UPC(key, value);
 			scanner->insert(*add);
 		}
+
+		file.close();
 	}
 	catch (std::exception& e)
 	{

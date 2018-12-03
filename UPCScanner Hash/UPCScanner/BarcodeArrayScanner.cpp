@@ -60,6 +60,7 @@ void BarcodeArrayScanner::loadFromFile(std::string& filePath)
 		index++;
 	}
 
+	file.close();
 	std::sort(scanner, scanner + size);
 }
 
