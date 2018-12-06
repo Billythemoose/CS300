@@ -1,4 +1,4 @@
-
+/*
 #include "BarcodeArrayScanner.h"
 #include <fstream>
 #include <sstream>
@@ -76,3 +76,4 @@ void BarcodeArrayScanner::find(int64_t& code)
 		}
 	}
 }
+*/

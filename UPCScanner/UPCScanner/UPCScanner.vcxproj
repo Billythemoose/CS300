@@ -19,15 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BarcodeArrayScanner.cpp" />
     <ClCompile Include="BarcodeArrayScanner.h" />
-    <ClCompile Include="BarcodeBSTScanner.cpp" />
     <ClCompile Include="BarcodeBSTScanner.h" />
     <ClCompile Include="BarcodeScanner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="Scanner.h" />
     <ClInclude Include="UPC.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

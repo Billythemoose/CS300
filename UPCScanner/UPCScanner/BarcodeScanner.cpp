@@ -1,72 +1,112 @@
 
 #include "BarcodeBSTScanner.h"
 #include "BarcodeArrayScanner.h"
+#include "UPC.h"
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <ctime>
 #include <algorithm>
 
 using namespace std;
 
-// main UPC BST
-BarcodeBSTScanner* scanBST;
-
-// main UPC Array
-BarcodeArrayScanner* scanArray;
+BinarySearchTree<UPC> baseBST;
+UPC* baseArray;
+int baseArraySize;
 
 // loads UPC information from csv
 void loadFromFile(string path)
 {
-	clock_t timer;
-	cout << "Loading. This will take some time..." << endl;
+	try
+	{		
+		std::ifstream file;
+		file.open(path);
+		std::string placeholderLine;
 
-	cout << "Loading file into BST..." << endl;
-	timer = clock();
-	scanBST->loadFromFile(path);
-	timer = clock() - timer;
-	cout << "BST Load Time: " << timer * 1.0 / CLOCKS_PER_SEC << " seconds" << endl;
+		// dump column header line
+		getline(file, placeholderLine);
 
-	cout << endl;
+		// loop through file to create array size
+		baseArraySize = 0;
+		while (getline(file, placeholderLine))
+		{
+			baseArraySize++;
+		}
 
-	cout << "Loading file into Array..." << endl;
-	timer = clock();
-	scanArray->loadFromFile(path);
-	timer = clock() - timer;
-	cout << "Array Load Time: " << timer * 1.0 / CLOCKS_PER_SEC << " seconds" << endl;
+		file.close();
 
-	cout << endl;
+
+		baseBST = BinarySearchTree<UPC>();
+		baseArray = new UPC[baseArraySize];
+
+		file.open(path);
+
+		// dump column header line
+		getline(file, placeholderLine);
+
+		// loop through file and add UPC to array
+		int index = 0;
+		while (getline(file, placeholderLine))
+		{
+			int64_t key;
+			std::string value;
+			std::string placeholderKey;
+			std::istringstream st(placeholderLine);
+			getline(st, placeholderKey, ',');
+			getline(st, value);
+
+			std::istringstream stNum(placeholderKey);
+			stNum >> key;
+
+			UPC add = UPC(key, value);
+			baseBST.insert(add);
+			baseArray[index] = add;
+			index++;
+		}
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << endl;
+	}
 }
 
-// asks for UPC then searches both BST and Array for code 
-bool findCode()
+
+void scan(Scanner<UPC>* scanner, UPC item)
 {
-	try
-	{
-		cout << "Search for UPC: ";
-		string upcString;
-		int64_t upcInt;
-		cin >> upcInt;
-		cout << "Searching for UPC: " << upcInt << endl;
-		clock_t timer;
-		timer = clock();
-		scanBST->find(upcInt);
-		timer = clock() - timer;
-		cout << "BST Search Time: " << timer * 1.0 / CLOCKS_PER_SEC << " seconds" << endl;
-		timer = clock();
-		scanArray->find(upcInt);
-		timer = clock() - timer;
-		cout << "Array Search Time: " << timer * 1.0 / CLOCKS_PER_SEC << " seconds" << endl;
-	}
-	catch (exception& e)
-	{
-		cout << "Not valid UPC input" << endl;
-	}
+	scanner->scan(item);
+}
+
+bool find()
+{
+	cout << "Search for UPC: ";
+	string upcString;
+	int64_t upcInt;
+	cin >> upcInt;
+	cout << "Searching for UPC: " << upcInt << endl;
+	UPC searchItem = UPC(upcInt);
+	clock_t timer;
+
+	Scanner<UPC>* scanner = new BarcodeBSTScanner<UPC>(baseBST);
+	timer = clock();
+	scan(scanner, searchItem);
+	timer = clock() - timer;
+	cout << "BST Search Time: " << timer * 1.0 / CLOCKS_PER_SEC << " seconds" << endl;
+
+	scanner = new BarcodeArrayScanner<UPC>(baseArray, baseArraySize);
+	timer = clock();
+	scan(scanner, searchItem);
+	timer = clock() - timer;
+	cout << "Array Search Time: " << timer * 1.0 / CLOCKS_PER_SEC << " seconds" << endl;
+
+	scanner = NULL;
+	delete scanner;
 
 	string again;
 	cout << "Search for another UPC? (Y/N): ";
 	cin >> again;
 	return (again == "Y" || again == "y");
-	cout << endl;
 }
+
 
 
 // main entry point
@@ -76,12 +116,7 @@ int main()
 	string path;
 	cin >> path;
 
-	scanBST = new BarcodeBSTScanner();
-	scanArray = new BarcodeArrayScanner();
 	loadFromFile(path);
 
-	while (findCode()) { }
-
-	delete scanBST;
-	delete scanArray;
+	while (find()) { }
 }

@@ -1,4 +1,4 @@
-
+/*/
 #include "BarcodeBSTScanner.h"
 #include <iostream>
 #include <fstream>
@@ -67,3 +67,4 @@ void BarcodeBSTScanner::loadFromFile(std::string& filePath)
 		std::cout << e.what() << endl;
 	}
 }
+*/
